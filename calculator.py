@@ -32,7 +32,7 @@ class Difficulty(enum.IntEnum):
 def get_all_level_v2_ratings(
         song: Dict[Difficulty, Tuple[int, float, bool]]) -> List[float]:
     if Difficulty.IV_alpha not in song:
-        return [calculate_single(charts) for charts in song.values()]
+        return [calculate_single(*charts) for charts in song.values()]
 
     iv_ratings: List[float] = [
         calculate_single(
@@ -55,6 +55,7 @@ def calculate_single(score: int, innerDifficulty: float,
     for i in range(len(RATING_TIERS)):
         if RATING_TIERS[i][0] <= score:
             tier = i
+            break
 
     l_score, l_bonus = RATING_TIERS[tier]
     h_score, h_bonus = RATING_TIERS[tier - 1]
@@ -70,9 +71,10 @@ def calculate_single(score: int, innerDifficulty: float,
 
 def calculate_player_rating(
         songs: List[Dict[Difficulty, Tuple[int, float, bool]]]) -> float:
-    ratings: List[float] = [
-        get_all_level_v2_ratings(song, True) for song in songs
-    ]
+    ratings: List[float] = []
+    for song in songs:
+        ratings.extend(get_all_level_v2_ratings(song))
+    print(ratings)
     ratings.sort(reverse=True)
 
     first10_ratings = ratings[:10]
@@ -83,3 +85,36 @@ def calculate_player_rating(
                     sum(second10_ratings) / 10.0 * 0.2 +
                     sum(third20_ratings) / 20.0 * 0.2)
     return math.floor(total_rating * 1000) / 1000.0
+
+
+if __name__ == "__main__":
+    # Example usage
+    example_songs = [
+        {  # Suito
+            Difficulty.I: (1010000, 5, True),  # 8.7
+            Difficulty.II: (1010000, 9.3, True),  # 13.0
+            Difficulty.III: (1009966, 12.4, True),  # 15.997
+            Difficulty.IV: (1006900, 14.5, True),  # 17.625
+        },
+        {  # Heaven's Cage
+            Difficulty.I: (1010000, 3, True),  # 6.7
+            Difficulty.II: (1010000, 7, True),  # 10.7
+            Difficulty.III: (1010000, 10.4, True),  # 14.1
+            Difficulty.IV: (1009916, 13.1, True),  # 16.692
+            Difficulty.IV_alpha: (1009925, 13.9, True),  # 17.493
+        },
+        {  # Alfheim's faith
+            Difficulty.I: (1010000, 4, True),  # 7.7
+            Difficulty.II: (1010000, 7, True),  # 10.7
+            Difficulty.III: (1010000, 10.5, True),  # 14.2
+            Difficulty.IV: (1010000, 12.5, True),  # 16.2
+            Difficulty.IV_alpha: (0, 13.2, False),  # 0.0
+        }
+    ]
+    print(calculate_player_rating(example_songs))  # Output: 8.610
+    '''
+    first 10: 17.625 17.493 16.2 15.997 14.2 14.1 13.0 10.7 10.7 8.7 --> 8.3228...
+    second 10: 7.7 6.7 --> 0.288
+    8.3228... + 0.288 = 8.6108... ==> 8.610
+    8.610 is the final rating
+    '''
