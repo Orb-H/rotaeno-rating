@@ -40,8 +40,11 @@ Rotaeno introduces the tiers and bonus values according to the score value as be
 Base of these tier values, the rating is calculated as below:
 
 - For pure perfect, (1010000)
-  $$(Chart\  Constant) + 3.7$$
+
+  $$(Chart\ Constant) + 3.7$$
+
 - For the score $s$ in the score range in $s_1,s_2$ and bonus range in $b_1,b_2$,
+
   $$(Chart\ Constant)+b_1+(b_2-b_1)\times\frac{s-s_1}{s_2-s_1}$$
 
 After calculating the rating value, there are more post-processing steps as below:
@@ -59,7 +62,9 @@ Now we know how to calculate the individual rating value. Based on these values,
    - If both `IV` and `IV-α` exist, pick the one with the higher chart rating value. Otherwise, pick the existing one.
 1. Sort the chart rating values in a descending order. (Higher first)
 1. Pick the first 40 of them and calculate the rating as below: ($c_i$ is the chart rating of $i$-th chart)
+
    $$
    \frac{c_1+...+c_{10}}{10}\times0.6+\frac{c_{11}+...+c_{20}}{10}\times0.2+\frac{c_{21}+...+c_{40}}{20}\times0.2
    $$
+
 1. Finally, keep three digits after decimal point and truncate the rest.
