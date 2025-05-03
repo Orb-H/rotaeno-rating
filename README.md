@@ -41,7 +41,7 @@ Base of these tier values, the rating is calculated as below:
 
 - For pure perfect, (1010000)
   $$(Chart\  Constant) + 3.7$$
-- For the score $s$ in the score range in $s_1~s_2$ and bonus range in $b_1~b_2$,
+- For the score $s$ in the score range in $s_1,s_2$ and bonus range in $b_1,b_2$,
   $$(Chart\ Constant)+b_1+(b_2-b_1)\times\frac{s-s_1}{s_2-s_1}$$
 
 After calculating the rating value, there are more post-processing steps as below:
