@@ -1,6 +1,6 @@
 # Rotaeno Rating Calculator Logic
 
-[Korean](https://github.com/Orb-H/rotaeno-rating/blob/main/README_ko.md)
+[한국어](https://github.com/Orb-H/rotaeno-rating/blob/main/README_ko.md)
 
 This repository contains the refined logic for calculating the player's rating. It follows the logic in **2.8.41** version.
 
