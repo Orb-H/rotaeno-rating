@@ -63,8 +63,6 @@ Now we know how to calculate the individual rating value. Based on these values,
 1. Sort the chart rating values in a descending order. (Higher first)
 1. Pick the first 40 of them and calculate the rating as below: ($c_i$ is the chart rating of $i$-th chart)
 
-   $$
-   \frac{c_1+...+c_{10}}{10}\times0.6+\frac{c_{11}+...+c_{20}}{10}\times0.2+\frac{c_{21}+...+c_{40}}{20}\times0.2
-   $$
+   $$\frac{c*1+...+c*{10}}{10}\times0.6+\frac{c*{11}+...+c*{20}}{10}\times0.2+\frac{c*{21}+...+c*{40}}{20}\times0.2$$
 
 1. Finally, keep three digits after decimal point and truncate the rest.
