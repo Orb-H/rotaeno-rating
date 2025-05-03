@@ -20,20 +20,20 @@ There are terms related to rating calculation, but here I introduce some terms f
 
 Rotaeno introduces the tiers and bonus values according to the score value as below:
 
-|   Score Range   | Bonus Range  | Slope(1e-6) |
-| :-------------: | :----------: | :---------: |
-|     1010000     |    `+3.7`    |             |
-| 1008000~1009999 |  +3.4~+3.6   |   100.05    |
-| 1004000~1008000 |  +2.4~+3.4   |   **250**   |
-| 1000000~1004000 |  +2.0~+2.4   |     100     |
-| 980000~1000000  |  +1.0~+2.0   |     50      |
-|  950000~980000  |   0.0~+1.0   |    33.33    |
-|  900000~950000  |   -1.0~0.0   |     20      |
-|  800000~900000  |  -2.0~-1.0   |     10      |
-|  700000~800000  |  -3.0~-2.0   |     10      |
-|  600000~700000  |  -4.0~-3.0   |     10      |
-|  500000~600000  |  -5.0~-4.0   |     10      |
-|    0~500000     | -9999.0~-5.0 |    19988    |
+|   Score Range   |   Bonus Range    | Slope(1e-6) |
+| :-------------: | :--------------: | :---------: |
+|     1010000     |      `+3.7`      |             |
+| 1008000~1009999 |  `+3.4`~`+3.6`   |   100.05    |
+| 1004000~1008000 |  `+2.4`~`+3.4`   |   **250**   |
+| 1000000~1004000 |  `+2.0`~`+2.4`   |     100     |
+| 980000~1000000  |  `+1.0`~`+2.0`   |     50      |
+|  950000~980000  |  `±0.0`~`+1.0`   |    33.33    |
+|  900000~950000  |  `-1.0`~`±0.0`   |     20      |
+|  800000~900000  |  `-2.0`~`-1.0`   |     10      |
+|  700000~800000  |  `-3.0`~`-2.0`   |     10      |
+|  600000~700000  |  `-4.0`~`-3.0`   |     10      |
+|  500000~600000  |  `-5.0`~`-4.0`   |     10      |
+|    0~500000     | `-9999.0`~`-5.0` |    19988    |
 
 Base of these tier values, the rating is calculated as below:
 
@@ -41,6 +41,11 @@ Base of these tier values, the rating is calculated as below:
 - For the score `s` in the range in `s1~s2`,
   - Let bonus range be `b1~b2`, then rating is `(Difficulty Value) + b1 + (s - s1) / (s2 - s1) * (b2 - b1)`.
   - In other words, rating is linear in each range.
+
+After calculating the rating value, there are more post-processing steps as below:
+
+- If the calculated value is negative, consider it as 0.
+- If the player didn't clear the chart, rating value cannot exceed 6.0.
 
 ## Calculating the total rating
 
