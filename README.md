@@ -56,7 +56,7 @@ Now we know how to calculate the individual rating value. Based on these values,
 1. Collect all the charts from each song.
 1. Collect score data from each song, according to the rule below.
    - Collect `I`, `II`, and `III` charts.
-   - If both `IV` and `IV-α` exist, pick the one with the higher chart rating value.
+   - If both `IV` and `IV-α` exist, pick the one with the higher chart rating value. Otherwise, pick the existing one.
 1. Sort the chart rating values in a descending order. (Higher first)
 1. Pick the first 40 of them and calculate the rating as below: ($c_i$ is the chart rating of $i$-th chart)
    $$
